@@ -170,6 +170,8 @@ class mochaPlugin {
     const region = this.options.region;
 
     let funcNames = [];
+    let compilers;
+
     if (typeof funcOption === 'string') {
       funcNames = [funcOption];
     } else if (funcOption.length > 0) {
@@ -276,10 +278,17 @@ class mochaPlugin {
             }
             /* eslint-enable dot-notation */
 
-            const compilers = myModule.options.compilers;
+            if (this.serverless.service.custom &&
+              this.serverless.service.custom['serverless-mocha-plugin'] &&
+              this.serverless.service.custom['serverless-mocha-plugin'].compilers) {
+              compilers = this.serverless.service.custom['serverless-mocha-plugin'].compilers;
+            }
+            if (myModule.options.compilers) {
+              compilers = myModule.options.compilers;
+            }
             if (typeof compilers !== 'undefined') {
               const extensions = ['js'];
-              myModule.options.compilers.split(',').filter(e => e !== '').forEach(c => {
+              compilers.split(',').filter(e => e !== '').forEach(c => {
                 const split = c.split(/:(.+)/);
                 const ext = split[0];
                 let mod = split[1];
