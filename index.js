@@ -275,6 +275,8 @@ class mochaPlugin {
               process.env['SERVERLESS_MOCHA_PLUGIN_REGION'] = region || inited.provider.region;
               process.env['SERVERLESS_MOCHA_PLUGIN_SERVICE'] = inited.service;
               process.env['SERVERLESS_MOCHA_PLUGIN_STAGE'] = stage || inited.provider.stage;
+            } else {
+              process.env['IS_OFFLINE'] = true;
             }
             /* eslint-enable dot-notation */
 
