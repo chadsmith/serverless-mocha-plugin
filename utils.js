@@ -40,7 +40,7 @@ function getTestFiles(funcs, testFolder, funcList) {
   if (funcFiles.length > 0) {
     funcFiles.forEach((val) => {
       if (['.js', '.ts'].includes(path.extname(val))) {
-        const base = path.basename(val).replace(/(\.test)?.[tj]s$/, '');
+        const base = val.replace(/(\.test)?.[tj]s$/, '');
         // Create test for non-functions only if no funcList
         if (funcs[base] || funcList.length === 0) {
           resFuncs[base] = funcs[base] || {};
